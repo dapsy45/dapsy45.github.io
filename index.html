@@ -675,32 +675,199 @@
       transform: none;
     }
 
+    /* ─── HAMBURGER BUTTON ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 860px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
-      #hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 5rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--line); }
-      .hero-right { padding: 2.5rem 1.5rem; }
-      #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      section { padding: 5rem 1.5rem; }
+
+    /* ── Tablet (≤ 1024px) ── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.1rem 2rem; }
+      .nav-links { gap: 1.75rem; }
+
+      #hero { grid-template-columns: 1fr 1fr; }
+      .hero-left { padding: 5rem 2rem 4rem; }
+      .hero-right { padding: 3rem 2rem; }
+
+      #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      #about .section-header { margin-bottom: 2.5rem; }
+
+      #skills { padding: 5rem 2rem; }
+      .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+      #experience { padding: 5rem 2rem; }
+
+      #projects { padding: 5rem 2rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+      #contact { padding: 5rem 2rem; gap: 3rem; }
+
+      footer { padding: 1.75rem 2rem; }
+    }
+
+    /* ── Mobile (≤ 768px) ── */
+    @media (max-width: 768px) {
+      /* Nav → hamburger */
+      nav { padding: 1rem 1.25rem; }
+
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        position: fixed;
+        top: 0; right: 0;
+        height: 100vh;
+        width: min(280px, 80vw);
+        background: var(--bg);
+        border-left: 1px solid var(--line);
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 3rem 2.5rem;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 150;
+        list-style: none;
+      }
+
+      .nav-links.open { transform: translateX(0); }
+
+      .nav-links a {
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+      }
+
+      /* Overlay behind menu */
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(26,26,24,0.4);
+        z-index: 140;
+      }
+      .nav-overlay.open { display: block; }
+
+      /* Hero stacks vertically */
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 64px;
+      }
+
+      .hero-left {
+        padding: 3.5rem 1.25rem 2.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-name { font-size: clamp(2.6rem, 10vw, 4rem); }
+
+      .hero-sub { max-width: 100%; font-size: 0.95rem; }
+
+      .hero-cta { flex-direction: column; gap: 0.75rem; }
+      .btn { text-align: center; }
+
+      .hero-right { padding: 2rem 1.25rem 3rem; }
+
+      .hero-card { padding: 2rem 1.5rem; max-width: 100%; }
+
+      .card-stats { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+      .stat-num { font-size: 1.6rem; }
+
+      /* About */
+      #about {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: 4rem 1.25rem;
+      }
+
+      .info-row { grid-template-columns: 1fr; }
+
+      /* Skills */
+      #skills { padding: 4rem 1.25rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+      /* Experience */
+      #experience { padding: 4rem 1.25rem; }
+
+      /* Projects */
+      #projects { padding: 4rem 1.25rem; }
+      .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+      /* Contact */
+      #contact {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        padding: 4rem 1.25rem;
+      }
+
+      /* Footer */
+      footer {
+        padding: 1.5rem 1.25rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        text-align: center;
+      }
+    }
+
+    /* ── Small mobile (≤ 480px) ── */
+    @media (max-width: 480px) {
+      .hero-name { font-size: clamp(2.2rem, 12vw, 3rem); }
+
+      .card-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .skills-grid { grid-template-columns: 1fr; }
+
+      .section-title { font-size: 1.8rem; }
+
+      .contact-headline { font-size: 1.8rem; }
+
+      .hero-card { padding: 1.5rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
+  <div class="nav-overlay" id="navOverlay"></div>
   <nav>
     <span class="nav-logo">EBM</span>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -953,6 +1120,29 @@
   </footer>
 
   <script>
+    // Hamburger menu
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    const overlay = document.getElementById('navOverlay');
+
+    function closeMenu() {
+      toggle.classList.remove('open');
+      links.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      overlay.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
